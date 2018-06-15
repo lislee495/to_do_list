@@ -12,12 +12,20 @@ class App extends Component {
     this.state= {
       currentUser: undefined
     }
+    this.updateCurr = this.updateCurr.bind(this)
+  }
+  updateCurr(id){
+    this.setState({currentUser: id})
   }
   componentDidMount(){
     fetch("/api/v1/current_user")
-    .then(response => {
-      console.log(response.data)
+    .then(response => response.json())
+    .then(res => {
+      this.setState({currentUser: res})
     })
+  }
+  shouldComponentUpdate(nextProps, nextState){
+    return (this.state.currentUser !== nextState.currentUser)    
   }
   render() {
     return (
@@ -30,8 +38,8 @@ class App extends Component {
         ) : 
         (
         <div> 
-          <Route path="/login" component={Signin} />
-          <Route path="/signup" component={Signup}/>
+          <Route path="/login" render={(props) => <Signin {...props} updateCurr={this.updateCurr} />}/>
+          <Route path="/signup" render={(props) => <Signup {...props} updateCurr={this.updateCurr} />}/>
           <Route path="/" component={Landing} />
         </div>
         )

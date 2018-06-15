@@ -5,22 +5,27 @@ class Signin extends Component {
         super(props)
         this.state = {username: "", 
                       password: ""}
+        this.handlePassword =this.handlePassword.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleUsername = this.handleUsername.bind(this)
     }
     handleUsername(event){
         this.setState({username: event.target.value})
     }
-      handlePassword(event){
+    handlePassword(event){
         this.setState({password: event.target.value})
-      }
+    }
     handleSubmit(event){
         event.preventDefault()
         fetch(`/api/v1/login`, {
-          method: 'POST', // or 'PUT'
-          body: JSON.stringify(this.state)
+        method: 'POST', // or 'PUT'
+        body: JSON.stringify({user: this.state}),
+        headers: {'Content-Type': 'application/json'}
         }).then(res=>res.json())
-        .then(name => console.log(name))
+        .then(user => this.props.updateCurr(user.id))
     }
     render() {
+
         return(
             <div className="signin-container">
             <form onSubmit={this.handleSubmit}>
