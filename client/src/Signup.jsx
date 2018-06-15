@@ -17,9 +17,11 @@ class Signup extends Component{
     }
     handleSubmit(event){
         event.preventDefault()
+        console.log(JSON.stringify({user: this.state}))
         fetch(`/api/v1/signup`, {
           method: 'POST', // or 'PUT'
-          body: JSON.stringify({user: this.state})
+          body: JSON.stringify({user: this.state}),
+          headers: {'Content-Type': 'application/json'}
         }).then(res=>res.json())
         .then(name => console.log(name))
     }
