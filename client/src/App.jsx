@@ -4,6 +4,7 @@ import './App.css';
 import Signin from './Signin.jsx'
 import Signup from './Signup.jsx'
 import Landing from './Landing.jsx'
+import Home from './Home.jsx'
 
 class App extends Component {
   constructor(){
@@ -24,7 +25,7 @@ class App extends Component {
         <div className="App">
         {this.state.currentUser ? (
           <div className="logged-in">
-
+          <Route path="/" component={Home}/>
           </div>
         ) : 
         (
