@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Signin extends Component(props) {
+class Signup extends Component(props) {
     constructor(props){
         super(props)
         this.state = {username: "", 
@@ -9,7 +9,7 @@ class Signin extends Component(props) {
     render() {
         return(
             <div className="signin-container">
-            <form onSubmit={this.props.handleSubmit(event, "login")}>
+            <form onSubmit={this.props.handleSubmit(event, "signup")}>
                 <label>Username:
                 <input type="text" name="username" onChange={this.props.handleUsername}/></label>
                 <label>Password
