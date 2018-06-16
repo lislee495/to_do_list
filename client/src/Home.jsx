@@ -1,15 +1,22 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import List from './List.jsx'
 import NewList from './NewList.jsx'
 import NewListForm from './NewListForm.jsx'
 
-
 class Home extends Component {
-  constructor(){
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       showNewListForm: false
     }
+    this.toggleShowNewList = this
+      .toggleShowNewList
+      .bind(this)
+  }
+  toggleShowNewList() {
+    this.setState({
+      showNewListForm: !this.state.showNewListForm
+    })
   }
   render() {
     return (
@@ -18,8 +25,12 @@ class Home extends Component {
           <h1 className="home-title">Welcome to your to-do list.</h1>
         </header>
         <div className="content">
-        {this.state.showNewListForm ? <NewListForm/> : <NewList/>}
-        <List/>
+          {this.state.showNewListForm
+            ? <NewListForm
+                toggleShowNewList={this.toggleShowNewList}
+                userId={this.props.userId}/>
+            : <NewList toggleShowNewList={this.toggleShowNewList}/>}
+          <List/>
         </div>
       </div>
     );
