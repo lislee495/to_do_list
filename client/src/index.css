@@ -9,6 +9,8 @@ body {
 
 .home {
   background: #fca460;
+  height: 100%;
+  width: 100%;
 }
 .list {
   background: white; 
@@ -18,5 +20,5 @@ body {
   margin: 2.5rem 5rem;
   font-size: 10rem; 
   color: black;
-
+  box-shadow: 1px 1px #888787;
 }
