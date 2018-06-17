@@ -47,7 +47,7 @@ module Api::V1
 
       # Only allow a trusted parameter "white list" through.
       def item_params
-        params.fetch(:item, {})
+        params.require(:item).permit(:description, :list_id, :completed, :date_completed)
       end
   end
 end

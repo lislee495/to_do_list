@@ -29,3 +29,7 @@ body {
   color: black;
   box-shadow: 1px 1px #888787;
 }
+
+.new-list-item {
+  border: 1px solid black;
+}

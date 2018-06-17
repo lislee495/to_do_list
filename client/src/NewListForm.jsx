@@ -13,13 +13,8 @@ class NewListForm extends Component {
             },
             items: [{description: ""},{description:""},{description:""}]
         }
-        this.handleDescription = this.handleDescription.bind(this)
-        this.handleListItem = this.handleListItem.bind(this)
-        this.handleTitle = this.handleTitle.bind(this)
-        this.handleAddNewListItem = this.handleAddNewListItem.bind(this)
-        this.handleItemUpdate = this.handleItemUpdate.bind(this)
     }
-    submitForm(event) {
+    submitForm = (event)=> {
         event.preventDefault()
         fetch(`/api/v1/lists`, {
             method: 'POST', // or 'PUT'
@@ -52,16 +47,16 @@ class NewListForm extends Component {
         }).catch(err => console.log(err))
     }
 
-    handleDescription(e){
+    handleDescription =(e) =>{
         this.setState({list: {description: e.target.value}})
     }
-    handleTitle(e) {
+    handleTitle=(e) =>{
         this.setState({list: {title: e.target.value}})
     }
-    handleAddNewListItem(){
+    handleAddNewListItem=()=>{
         this.setState({items: this.state.items.concat([{description: ""}])})
     }
-    handleItemUpdate(e, idx) {
+    handleItemUpdate = (e, idx) =>{
         const newItems = this.state.items.map((ele, sidx)=> {
             if (idx !== sidx) return ele 
             return {description: e.target.value}
@@ -82,11 +77,11 @@ class NewListForm extends Component {
                             <input type="text" name="description" onChange={this.handleDescription}/></label>
                     </div>
                     <div className="list-items">
-                        <label>To do items:</label>
+                        <label>Things that need to be done:</label>
                         {this.state.items.map((ele, idx)=> {
-                            <ListItem index={idx} handleItemUpdate={this.handleItemUpdate}/>
+                            return <ListItem key={idx} index={idx} handleItemUpdate={this.handleItemUpdate}/>
                         })}
-                        <NewListItem onClick={this.handleAddNewListItem}/>
+                        <NewListItem handleAddNewListItem={this.handleAddNewListItem}/>
                     </div>
                     <input type="submit" value="Save"/>
                 </form>
