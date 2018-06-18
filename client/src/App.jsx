@@ -20,7 +20,7 @@ export default class App extends Component {
     this.setState({currentUser: id})
   }
   componentDidMount() {
-    fetch("/api/v1/current_user")
+    fetch("/api/current_user")
       .then(response => response.json())
       .then(res => {
         this.setState({currentUser: res})

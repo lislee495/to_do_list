@@ -1,4 +1,4 @@
-module Api::V1
+module Api
   class ItemsController < ApplicationController
     before_action :set_item, only: [:show, :update, :destroy]
 

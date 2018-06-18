@@ -5,19 +5,16 @@ class Signin extends Component {
         super(props)
         this.state = {username: "", 
                       password: ""}
-        this.handlePassword =this.handlePassword.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.handleUsername = this.handleUsername.bind(this)
     }
-    handleUsername(event){
+    handleUsername = (event)=>{
         this.setState({username: event.target.value})
     }
-    handlePassword(event){
+    handlePassword=(event)=>{
         this.setState({password: event.target.value})
     }
-    handleSubmit(event){
+    handleSubmit=(event)=>{
         event.preventDefault()
-        fetch(`/api/v1/login`, {
+        fetch(`/api/login`, {
         method: 'POST', // or 'PUT'
         body: JSON.stringify({user: this.state}),
         headers: {'Content-Type': 'application/json'}

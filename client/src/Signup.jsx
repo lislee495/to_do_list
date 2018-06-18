@@ -17,7 +17,7 @@ class Signup extends Component{
     }
     handleSubmit(event){
         event.preventDefault()
-        fetch(`/api/v1/signup`, {
+        fetch(`/api/signup`, {
           method: 'POST', // or 'PUT'
           body: JSON.stringify({user: this.state}),
           headers: {'Content-Type': 'application/json'}

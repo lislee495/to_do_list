@@ -1,4 +1,4 @@
-module Api::V1 
+module Api 
     class SessionsController < ApplicationController
         def create 
             @user = User.find_by(session_params)

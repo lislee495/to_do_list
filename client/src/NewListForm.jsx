@@ -19,7 +19,7 @@ class NewListForm extends Component {
     }
     submitForm = (event)=> {
         event.preventDefault()
-        fetch(`/api/v1/lists`, {
+        fetch(`/api/users/${this.props.userId}/lists`, {
             method: 'POST', // or 'PUT'
             body: JSON.stringify({list: this.state.list}),
                 headers: {
@@ -29,12 +29,12 @@ class NewListForm extends Component {
         .then(res => res.json())
         .then(list => {
             const promises = this.state.items
-            .filter(ele => ele.description !== "")
-            .map(item => this.submitItems(item, list.id))
+                .filter(ele => ele.description !== "")
+                .map(item => this.submitItems(item, list.id))
             return Promise.all(promises)
             .catch(err => console.log(err))
             })
-            // .then(result => this.props.toggleShowNewList)
+        .then(result => this.props.toggleShowNewList)
     }
 
     submitItems(itemObject, listId) {
@@ -43,8 +43,7 @@ class NewListForm extends Component {
             list_id: listId,
             completed: itemObject.completed
         }
-        console.log(itemObject, item)
-        fetch(`/api/v1/items`, {
+        fetch(`/api/users/${this.props.userId}/lists/${listId}`, {
             method: 'POST', // or 'PUT'
             body: JSON.stringify({item: item}),
             headers: {
@@ -68,7 +67,6 @@ class NewListForm extends Component {
             return Object.assign({}, ele, {description: e.target.value})
         })
         this.setState({items: newItems})
-        console.log(this.state.items)
     }
     handleItemCompleted = (e, idx) => {
         const newItems = this.state.items.map((ele, sidx)=> {

@@ -7,7 +7,8 @@ class Home extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      showNewListForm: false
+      showNewListForm: false,
+      lists: []
     }
     this.toggleShowNewList = this
       .toggleShowNewList
@@ -17,6 +18,9 @@ class Home extends Component {
     this.setState({
       showNewListForm: !this.state.showNewListForm
     })
+  }
+  componentDidMount(){
+    // fetch('/api/lists')
   }
   render() {
     return (
@@ -30,6 +34,7 @@ class Home extends Component {
                 toggleShowNewList={this.toggleShowNewList}
                 userId={this.props.userId}/>
             : <NewList toggleShowNewList={this.toggleShowNewList}/>}
+
           <List/>
         </div>
       </div>
