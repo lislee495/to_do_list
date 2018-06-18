@@ -43,7 +43,7 @@ class NewListForm extends Component {
             list_id: listId,
             completed: itemObject.completed
         }
-        fetch(`/api/users/${this.props.userId}/lists/${listId}`, {
+        fetch(`/api/users/${this.props.userId}/lists/${listId}/items`, {
             method: 'POST', // or 'PUT'
             body: JSON.stringify({item: item}),
             headers: {

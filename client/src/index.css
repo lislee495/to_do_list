@@ -14,6 +14,8 @@ body {
 }
 .list {
   background: white; 
+  margin: 2.5rem 5rem;
+  color: black;
 }
 .new-list {
   background: white;

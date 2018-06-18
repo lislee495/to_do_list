@@ -20,7 +20,12 @@ class Home extends Component {
     })
   }
   componentDidMount(){
-    // fetch('/api/lists')
+    fetch(`/api/users/${this.props.userId}/lists`)
+    .then(res => res.json())
+    .then(lists => {
+      console.log(lists)
+      this.setState({lists: lists})
+    })
   }
   render() {
     return (
@@ -35,7 +40,9 @@ class Home extends Component {
                 userId={this.props.userId}/>
             : <NewList toggleShowNewList={this.toggleShowNewList}/>}
 
-          <List/>
+          {this.state.lists.map(ele => {
+            return <List key={ele.id} info={ele} userId={this.props.userId}/>
+          })}
         </div>
       </div>
     );
