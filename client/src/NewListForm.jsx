@@ -11,7 +11,10 @@ class NewListForm extends Component {
                 user_id: this.props.userId,
                 description: ""
             },
-            items: [{description: ""},{description:""},{description:""}]
+            items: [
+                {description:"", completed:false},
+                {description:"", completed:false},
+                {description:"", completed:false}]
         }
     }
     submitForm = (event)=> {
@@ -23,21 +26,24 @@ class NewListForm extends Component {
                     'Content-Type': 'application/json'
                 }
             })
-            .then(res => res.json())
-            .then(list => {
-                const promises = this.state.items.map(item => this.submitItems(item, list.id))
-                .catch(err => console.log(err))
-                return Promise.all(promises)
-                .catch(err => console.log(err))
-            }).then(result => this.props.toggleShowNewList)
+        .then(res => res.json())
+        .then(list => {
+            const promises = this.state.items
+            .filter(ele => ele.description !== "")
+            .map(item => this.submitItems(item, list.id))
+            return Promise.all(promises)
+            .catch(err => console.log(err))
+            })
+            // .then(result => this.props.toggleShowNewList)
     }
 
     submitItems(itemObject, listId) {
         const item = {
             description: itemObject.description,
             list_id: listId,
-            completed: false
+            completed: itemObject.completed
         }
+        console.log(itemObject, item)
         fetch(`/api/v1/items`, {
             method: 'POST', // or 'PUT'
             body: JSON.stringify({item: item}),
@@ -48,18 +54,26 @@ class NewListForm extends Component {
     }
 
     handleDescription =(e) =>{
-        this.setState({list: {description: e.target.value}})
+        this.setState({list: Object.assign({}, this.state.list, {description: e.target.value})})
     }
     handleTitle=(e) =>{
-        this.setState({list: {title: e.target.value}})
+        this.setState({list: Object.assign({}, this.state.list, {title: e.target.value})})
     }
     handleAddNewListItem=()=>{
         this.setState({items: this.state.items.concat([{description: ""}])})
     }
-    handleItemUpdate = (e, idx) =>{
+    handleItemDescription = (e, idx) =>{
         const newItems = this.state.items.map((ele, sidx)=> {
             if (idx !== sidx) return ele 
-            return {description: e.target.value}
+            return Object.assign({}, ele, {description: e.target.value})
+        })
+        this.setState({items: newItems})
+        console.log(this.state.items)
+    }
+    handleItemCompleted = (e, idx) => {
+        const newItems = this.state.items.map((ele, sidx)=> {
+            if (idx !== sidx) return ele 
+            return Object.assign({}, ele, {completed: !ele.completed})
         })
         this.setState({items: newItems})
     }
@@ -79,7 +93,10 @@ class NewListForm extends Component {
                     <div className="list-items">
                         <label>Things that need to be done:</label>
                         {this.state.items.map((ele, idx)=> {
-                            return <ListItem key={idx} index={idx} handleItemUpdate={this.handleItemUpdate}/>
+                            return <ListItem key={idx} 
+                            index={idx} 
+                            handleItemDescription={this.handleItemDescription}
+                            handleItemCompleted={this.handleItemCompleted}/>
                         })}
                         <NewListItem handleAddNewListItem={this.handleAddNewListItem}/>
                     </div>

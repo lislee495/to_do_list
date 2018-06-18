@@ -19,9 +19,9 @@ module Api::V1
       @item = Item.new(item_params)
 
       if @item.save
-        render json: @item, status: :created, location: @item
+        render json: @item
       else
-        render json: @item.errors, status: :unprocessable_entity
+        render(status:404)
       end
     end
 

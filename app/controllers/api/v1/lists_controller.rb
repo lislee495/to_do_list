@@ -19,18 +19,18 @@ module Api::V1
       @list = List.new(list_params)
 
       if @list.save
-        render json: @list, status: :created, location: @list
-      else
-        render json: @list.errors, status: :unprocessable_entity
+        render json: @list
+      else 
+        render(status: 404)
       end
     end
 
     # PATCH/PUT /lists/1
     def update
       if @list.update(list_params)
-        render json: @list
-      else
-        render json: @list.errors, status: :unprocessable_entity
+          render json: @list
+      else 
+          render(status: 404)
       end
     end
 

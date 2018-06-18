@@ -8,7 +8,8 @@ class ListItem extends Component {
   render() {
     return (
       <div className="list-item">
-        <input type="text" name="What to do..." onChange={()=>this.props.handleItemUpdate(this.props.index)}/>
+        <input type="checkbox" onChange={(e)=>this.props.handleItemCompleted(e, this.props.index)}/>
+        <input type="text" name="What to do..." onChange={(e)=>this.props.handleItemDescription(e, this.props.index)}/>
       </div>
     );
   }
