@@ -4,8 +4,7 @@ module Api
 
     # GET /items
     def index
-      @items = Item.all
-
+      @items = List.find(params[:list_id]).items
       render json: @items
     end
 

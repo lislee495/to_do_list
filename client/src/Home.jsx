@@ -40,7 +40,7 @@ class Home extends Component {
                 userId={this.props.userId}/>
             : <NewList toggleShowNewList={this.toggleShowNewList}/>}
 
-          {this.state.lists.map(ele => {
+          {this.state.lists.length && this.state.lists.map(ele => {
             return <List key={ele.id} info={ele} userId={this.props.userId}/>
           })}
         </div>

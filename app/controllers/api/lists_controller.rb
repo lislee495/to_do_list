@@ -4,7 +4,7 @@ module Api
 
     # GET /lists
     def index
-      @lists = List.all
+      @lists = User.find(params[:user_id]).lists
 
       render json: @lists
     end

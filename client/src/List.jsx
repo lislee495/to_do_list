@@ -8,12 +8,32 @@ class List extends Component {
     }
   }
   componentDidMount(){
+    console.log(this.props.info.id)
     fetch(`/api/users/${this.props.userId}/lists/${this.props.info.id}/items`)
     .then(res => res.json())
     .then(items => {
       this.setState({items: items})
     })
   }
+  // handleItemDescriptionUpdate=(e, id)=>{
+  //   fetch(`/api/users/${this.props.userId}/lists/${listId}/items/${info.id}`, {
+  //     method: 'POST', // or 'PUT'
+  //     body: JSON.stringify({item: item}),
+  //     headers: {
+  //         'Content-Type': 'application/json'
+  //     }
+  //   })
+  // }
+  // handleItemCompletedUpdate=(e, info)=>{
+
+  //   fetch(`/api/users/${this.props.userId}/lists/${listId}/items/${info.id}`, {
+  //     method: 'POST', // or 'PUT'
+  //     body: JSON.stringify({item: item}),
+  //     headers: {
+  //         'Content-Type': 'application/json'
+  //     }
+  //   })
+  // }
   render() {
     const {title, description, created_at} = this.props.info
     return (
